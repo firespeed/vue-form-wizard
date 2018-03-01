@@ -28,7 +28,7 @@
         </transition>
 
       </div>
-      <slot name="title">
+      <slot name="title" v-if="!isVertical">
         <span class="stepTitle"
               :class="{active:tab.active, has_error:tab.validationError}"
               :style="tab.active ? stepTitleStyle : {}">

@@ -1,5 +1,7 @@
 .vue-form-wizard {
     .wizard-pagination {
+        position: relative;
+        display: inherit;
         &.right {
             order: 2;
         }
@@ -26,9 +28,6 @@
                 color: $form-placeholder-color;
                 position: relative;
                 top: 3px;
-                &.vertical {
-                    top: calc(50% - 35px);
-                }
                 &:hover,
                 &:focus {
                     background-color: transparent;

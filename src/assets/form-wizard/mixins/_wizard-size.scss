@@ -1,6 +1,7 @@
 @mixin wizard-size($name, $size, $font-size){
   $computed-font-size: $size/2 + 5px;
   $computed-vertical-size: $size/2 + 2px;
+  $computed-top-vertical: $size/2;
 
   &.#{$name}{
     .wizard-icon-circle{
@@ -11,8 +12,13 @@
         height: $computed-font-size;
       }
     }
-    .wizard-nav-pills > li.active > a .wizard-icon {
-      font-size: $font-size;
+    .wizard-nav-pills > li {
+      &.active > a .wizard-icon {
+        font-size: $font-size;
+      }
+      > a.vertical {
+          top: calc(50% - #{$computed-top-vertical});
+        }
     }
     .wizard-navigation .wizard-progress-with-circle {
       position: relative;
@@ -22,7 +28,7 @@
     .wizard-navigation .wizard-progress-vertical-with-circle {
       position: relative;
       left: $computed-vertical-size;
-      width: 4px;
+      width: 5px;
     }
 
   }
