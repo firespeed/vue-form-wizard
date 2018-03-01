@@ -8,31 +8,33 @@
       </slot>
     </div>
     <div class="wizard-navigation">
-      <div class="wizard-progress-with-circle" v-if="!isVertical" :class="progressClasses">
-        <div class="wizard-progress-bar"
-             :style="progressBarStyle"></div>
+      <div class="wizard-pagination" :class="{right: isOnRight}">
+        <div class="wizard-progress-with-circle" v-if="!isVertical" :class="progressClasses">
+          <div class="wizard-progress-bar"
+               :style="progressBarStyle"></div>
+        </div>
+        <div class="wizard-progress-vertical-with-circle" v-if="isVertical" :class="progressClasses">
+          <div class="wizard-progress-bar"
+               :style="progressBarVerticalStyle"></div>
+        </div>
+        <ul class="wizard-nav wizard-nav-pills" role="tablist" :class="stepsClasses">
+          <slot name="step" v-for="(tab, index) in tabs"
+                :tab="tab"
+                :index="index"
+                :navigate-to-tab="navigateToTab"
+                :step-size="stepSize"
+                :transition="transition">
+            <wizard-step :tab="tab"
+                         :step-size="stepSize"
+                         @click.native="navigateToTab(index)"
+                         @keyup.enter.native="navigateToTab(index)"
+                         :transition="transition"
+                         :index="index"
+                         :isVertical="isVertical">
+            </wizard-step>
+          </slot>
+        </ul>
       </div>
-      <div class="wizard-progress-vertical-with-circle" v-if="isVertical" :class="progressClasses">
-        <div class="wizard-progress-bar"
-             :style="progressBarVerticalStyle"></div>
-      </div>
-      <ul class="wizard-nav wizard-nav-pills" role="tablist" :class="stepsClasses">
-        <slot name="step" v-for="(tab, index) in tabs"
-              :tab="tab"
-              :index="index"
-              :navigate-to-tab="navigateToTab"
-              :step-size="stepSize"
-              :transition="transition">
-          <wizard-step :tab="tab"
-                       :step-size="stepSize"
-                       @click.native="navigateToTab(index)"
-                       @keyup.enter.native="navigateToTab(index)"
-                       :transition="transition"
-                       :index="index"
-                       :isVertical="isVertical">
-          </wizard-step>
-        </slot>
-      </ul>
       <div class="wizard-tab-content">
         <slot v-bind="slotProps">
         </slot>
@@ -133,6 +135,10 @@
         type: String,
         default: 'horizontal'
       },
+      orientation: {
+        type: String,
+        default: 'left'
+      },
       progressClasses: {
         type: [String, Array],
         default: ''
@@ -201,6 +207,9 @@
       },
       isVertical () {
         return this.layout === 'vertical'
+      },
+      isOnRight () {
+        return this.orientation === 'right'
       },
       displayPrevButton () {
         return this.activeTabIndex !== 0
