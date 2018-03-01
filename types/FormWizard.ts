@@ -1,6 +1,6 @@
 export type ShapeType = 'circle' | 'square' | 'tab'
 export type LayoutType = 'vertical' | 'horizontal'
-export type StepSizeType = 'xs' | 'sm' | 'md' | 'lg'
+export type StepSizeType = 'xxs' | 'xs' | 'sm' | 'md' | 'lg'
 
 export declare class Wizard {
   /** Wizard title */

@@ -9,6 +9,7 @@
       background: $danger-states-color !important;
     }
   }
+  @include wizard-size('xxs', 23px, 12px);
   @include wizard-size('xs', 40px, 16px);
   @include wizard-size('sm', 50px, 20px);
   @include wizard-size('md', 70px, 24px);
