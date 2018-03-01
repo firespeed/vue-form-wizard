@@ -8,9 +8,13 @@
       </slot>
     </div>
     <div class="wizard-navigation">
-      <div class="wizard-progress-with-circle" v-if="!isVertical">
+      <div class="wizard-progress-with-circle" v-if="!isVertical" :class="progressClasses">
         <div class="wizard-progress-bar"
              :style="progressBarStyle"></div>
+      </div>
+      <div class="wizard-progress-vertical-with-circle" v-if="isVertical" :class="progressClasses">
+        <div class="wizard-progress-bar"
+             :style="progressBarVerticalStyle"></div>
       </div>
       <ul class="wizard-nav wizard-nav-pills" role="tablist" :class="stepsClasses">
         <slot name="step" v-for="(tab, index) in tabs"
@@ -24,7 +28,8 @@
                        @click.native="navigateToTab(index)"
                        @keyup.enter.native="navigateToTab(index)"
                        :transition="transition"
-                       :index="index">
+                       :index="index"
+                       :isVertical="isVertical">
           </wizard-step>
         </slot>
       </ul>
@@ -128,6 +133,10 @@
         type: String,
         default: 'horizontal'
       },
+      progressClasses: {
+        type: [String, Array],
+        default: ''
+      },
       stepsClasses: {
         type: [String, Array],
         default: ''
@@ -198,6 +207,13 @@
       },
       stepPercentage () {
         return 1 / (this.tabCount * 2) * 100
+      },
+      progressBarVerticalStyle () {
+        return {
+          backgroundColor: this.color,
+          height: `${this.progress}%`,
+          color: this.color
+        }
       },
       progressBarStyle () {
         return {

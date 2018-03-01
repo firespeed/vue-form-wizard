@@ -1,6 +1,6 @@
 <template>
   <li :class="{active:tab.active}">
-    <a href="javascript:void(0)" :class="{disabled: !tab.checked}">
+    <a href="javascript:void(0)" :class="{disabled: !tab.checked, vertical: isVertical}">
       <div class="wizard-icon-circle md"
            role="tab"
            :tabindex="tab.checked ? 0 : ''"
@@ -55,6 +55,10 @@
       index: {
         type: Number,
         default: 0
+      },
+      isVertical: {
+        type: Boolean,
+        default: false
       }
     },
     computed: {

@@ -21,6 +21,9 @@
         color: $form-placeholder-color;
         position: relative;
         top: 3px;
+        &.vertical {
+            top: calc(50% - 35px);
+        }
         &:hover,
         &:focus{
             background-color: transparent;
