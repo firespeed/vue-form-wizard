@@ -35,7 +35,7 @@
           </slot>
         </ul>
       </div>
-      <div class="wizard-tab-content">
+      <div class="wizard-tab-content" :class="contentClasses">
         <slot v-bind="slotProps">
         </slot>
       </div>
@@ -144,6 +144,10 @@
         default: ''
       },
       stepsClasses: {
+        type: [String, Array],
+        default: ''
+      },
+      contentClasses: {
         type: [String, Array],
         default: ''
       },
