@@ -7,7 +7,7 @@
         <p class="category">{{subtitle}}</p>
       </slot>
     </div>
-    <div class="wizard-navigation">
+    <div class="wizard-navigation" :class="navigationClasses">
       <div class="wizard-pagination" :class="{right: isOnRight}">
         <div class="wizard-progress-with-circle" v-if="!isVertical" :class="progressClasses">
           <div class="wizard-progress-bar"
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div class="wizard-card-footer clearfix" v-if="!hideButtons">
+    <div class="wizard-card-footer clearfix" v-if="!hideButtons" :class="footerClasses">
       <slot name="footer"
             v-bind="slotProps">
         <div class="wizard-footer-left">
@@ -148,6 +148,14 @@
         default: ''
       },
       contentClasses: {
+        type: [String, Array],
+        default: ''
+      },
+      footerClasses: {
+        type: [String, Array],
+        default: ''
+      },
+      navigationClasses: {
         type: [String, Array],
         default: ''
       },
