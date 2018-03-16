@@ -30,7 +30,12 @@
                          @keyup.enter.native="navigateToTab(index)"
                          :transition="transition"
                          :index="index"
-                         :isVertical="isVertical">
+                         :isVertical="isVertical"
+                         :checkedBgColor="checkedBgColor"
+                         :checkedBorderColor="checkedBorderColor"
+                         :activeBgColor="activeBgColor"
+                         :activeBorderColor="activeBorderColor"
+            >
             </wizard-step>
           </slot>
         </ul>
@@ -126,6 +131,22 @@
       errorColor: {
         type: String,
         default: '#8b0000'
+      },
+      checkedBgColor: {
+        type: [String, Boolean],
+        default: false
+      },
+      checkedBorderColor: {
+        type: [String, Boolean],
+        default: false
+      },
+      activeBgColor: {
+        type: [String, Boolean],
+        default: false
+      },
+      activeBorderColor: {
+        type: [String, Boolean],
+        default: false
       },
       shape: {
         type: String,

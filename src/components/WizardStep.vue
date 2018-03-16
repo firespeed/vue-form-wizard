@@ -13,18 +13,18 @@
 
         <transition :name="transition" mode="out-in">
 
-            <div v-if="tab.active" class="wizard-icon-container"
-                 :class="{square_shape:isStepSquare, tab_shape:isTabShape}"
-                 :style="[tab.active ? iconActiveStyle: {}, tab.validationError ? errorStyle : {}]">
-              <slot name="active-step">
-                <i v-if="tab.icon" :class="tab.icon" class="wizard-icon"></i>
-                <i v-else class="wizard-icon">{{index + 1}}</i>
-              </slot>
-            </div>
-            <slot v-if="!tab.active">
-              <i v-if="!tab.active && tab.icon" :class="tab.icon" class="wizard-icon"></i>
-              <i v-if="!tab.active && !tab.icon" class="wizard-icon">{{index + 1}}</i>
+          <div v-if="tab.active" class="wizard-icon-container"
+               :class="{square_shape:isStepSquare, tab_shape:isTabShape}"
+               :style="[tab.active ? iconActiveStyle: {}, tab.validationError ? errorStyle : {}]">
+            <slot name="active-step">
+              <i v-if="tab.icon" :class="tab.icon" class="wizard-icon"></i>
+              <i v-else class="wizard-icon">{{index + 1}}</i>
             </slot>
+          </div>
+          <slot v-if="!tab.active">
+            <i v-if="!tab.active && tab.icon" :class="tab.icon" class="wizard-icon"></i>
+            <i v-if="!tab.active && !tab.icon" class="wizard-icon">{{index + 1}}</i>
+          </slot>
         </transition>
 
       </div>
@@ -59,17 +59,49 @@
       isVertical: {
         type: Boolean,
         default: false
+      },
+      checkedBgColor: {
+        type: [String, Boolean],
+        default: false
+      },
+      checkedBorderColor: {
+        type: [String, Boolean],
+        default: false
+      },
+      activeBgColor: {
+        type: [String, Boolean],
+        default: false
+      },
+      activeBorderColor: {
+        type: [String, Boolean],
+        default: false
       }
     },
     computed: {
       iconActiveStyle () {
         return {
-          backgroundColor: this.tab.color
+          backgroundColor: this.activeBgColor ? this.activeBgColor : this.tab.color
         }
       },
       stepCheckedStyle () {
-        return {
-          borderColor: this.tab.color
+        if (this.tab.active && this.checkedBgColor && this.activeBorderColor) {
+          return {
+            borderColor: this.activeBorderColor,
+            backgroundColor: this.checkedBgColor
+          }
+        } else if (this.tab.active && this.activeBorderColor) {
+          return {
+            borderColor: this.activeBorderColor
+          }
+        } else if (this.checkedBgColor) {
+          return {
+            borderColor: this.checkedBorderColor ? this.checkedBorderColor : this.tab.color,
+            backgroundColor: this.checkedBgColor
+          }
+        } else {
+          return {
+            borderColor: this.checkedBorderColor ? this.checkedBorderColor : this.tab.color
+          }
         }
       },
       errorStyle () {
